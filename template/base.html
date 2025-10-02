@@ -1,0 +1,88 @@
+{% load static %}
+{% load lising_tags %}
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <title>{{ title }}</title>
+    <link type="text/css" href="{% static 'css/styles.css' %}" rel="stylesheet" />
+</head>
+<body>
+
+<header>
+    <nav class="navbar">
+        <div class="logo">
+            <img src={% static 'img/logo.jpg' %} alt="Logo">
+            <span class="logo-text">Delta<u>Truxwir</u></span>
+        </div>
+
+        <ul>
+{#  Интересная штука можно будет переделать и добавить к себе в проект!      #}
+{#            {% show_categories cat_selected %}#}
+{##}
+{#                {% if cat_selected == 0 or cat_selected is None %}#}
+{#                    <li class="selected">Главная</li>#}
+{#                {% else %}#}
+{#                    <li><a href="{% url 'home' %}">Главная</a></li>#}
+{#                {% endif %}#}
+
+            <li><a href="{% url 'home' %}">Главная</a></li>
+            {% for m in menu %}
+                {% if not forloop.last %}<li>{% else %}<li class="last">{% endif %}
+            <a href="{% url m.url_name %}">{{m.title}}</a>
+            </li>
+            {% endfor %}
+        </ul>
+    </nav>
+</header>
+
+{% block content %} {% endblock %}
+
+<footer>
+    <div class="footer-container">
+
+        <div class="footer-section">
+            <h3>Компания</h3>
+            <ul>
+                <li><a href="#">О нас</a></li>
+                <li><a href="#">Команда</a></li>
+                <li><a href="#">Новости</a></li>
+            </ul>
+        </div>
+
+        <div class="footer-section">
+            <h3>Услуги</h3>
+            <ul>
+                <li><a href="#">Оборудование</a></li>
+                <li><a href="#">Спецтехника</a></li>
+                <li><a href="#">Транспорт</a></li>
+            </ul>
+        </div>
+
+        <div class="footer-section">
+            <h3>Клиентам</h3>
+            <ul>
+                <li><a href="#">Акции</a></li>
+                <li><a href="#">Калькулятор лизинга</a></li>
+                <li><a href="#">FAQ</a></li>
+            </ul>
+        </div>
+
+        <div class="footer-section">
+            <h3>Контакты</h3>
+            <ul>
+                <li><a href="https://www.google.com/maps?q=55.794710, 49.138044" target="_blank">
+                    Казань, ул. Карла Маркса, д. 68
+                </a></li>
+                <li><p>Телефон: <a href="tel:8 (800) 123-45-67">8 (932) 253-88-62</a></p></li>
+                <li><p>Email: <a href="mailto:info@gmail.com">tchernusho@gmail.com</a></p></li>
+            </ul>
+        </div>
+
+    </div>
+    <div class="footer-legal">
+        <p class="copyright">© 2025 DeltaTruxwir. Все права защищены</p>
+    </div>
+</footer>
+
+</body>
+</html>
