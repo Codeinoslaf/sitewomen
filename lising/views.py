@@ -3,6 +3,8 @@ from django.shortcuts import *
 from django.urls import *
 from django.template.defaultfilters import slugify
 
+from lising.models import Equipment
+
 
 # Create your views here.
 class MyClass:
@@ -25,46 +27,50 @@ menu = [{'title': "О нас", 'url_name': 'about'},
         {'title': "Войти", 'url_name': 'login'}
         ]
 
-data_db = [
-    {'id': 1, 'title': 'Лизинг оборудования', 'content':
-        'Станки, производственные линии, медицинское и IT-оборудование с минимальными первоначальными затратами',
-     'is_published': True},
-    {'id': 2, 'title': 'Лизинг спецтехники', 'content':
-        'Экскаваторы, краны, бульдозеры и другая строительная техника на выгодных условиях.',
-     'is_published': True},
-    {'id': 3, 'title': 'Лизинг транспорта', 'content':
-        'Грузовики, фуры, коммерческие автомобили с возможностью выкупа по окончании договора.',
-     'is_published': True},
-]
-
 
 def index(request):
+    posts = Equipment.published.all()
     data = {
         'title': 'Главная страница',
         'menu': menu,
-        'posts': data_db,
-        'cat_selected': 0,  # не обязательная строчка
+        'posts': posts,
     }
     return render(request, 'leasing_equipment/index.html',
-              context=data)
+                  context=data)
 
 
 def show_category(request, cat_id):
     data = {
         'title': 'Отображение по рубрикам',
         'menu': menu,
-        'posts': data_db,
+        'posts': Equipment.published.all(),
         'cat_selected': cat_id,
     }
     return render(request, 'leasing_equipment/index.html',
                   context=data)
 
-def show_post(request, post_id):
-    return HttpResponse(f"Отображение статьи с id = {post_id}")
+
+def show_post(request, post_slug):
+    post = get_object_or_404(Equipment, slug=post_slug)
+
+    data = {
+        'title': post.title,
+        'menu': menu,
+        'post': post,
+        'cat_selected': 1,
+    }
+    return render(request, 'post.html',
+                  context=data)
 
 
 def equipment(request):
-    return HttpResponse(f"Оборудование")
+    posts = Equipment.published.all()
+    data = {
+        'title': 'Главная страница',
+        'menu': menu,
+        'posts': posts,
+    }
+    return render(request, 'leasing_equipment/equipment.html', context=data)
 
 
 def login(request):

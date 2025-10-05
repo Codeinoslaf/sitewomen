@@ -4,7 +4,9 @@
 <html lang="ru">
 <head>
     <title>{{ title }}</title>
+    <link rel="icon" type="image/png" href="{% static 'img/logo_title.jpg' %}">
     <link type="text/css" href="{% static 'css/styles.css' %}" rel="stylesheet" />
+    {% block extra_css %}{% endblock %}
 </head>
 <body>
 
@@ -16,6 +18,7 @@
         </div>
 
         <ul>
+
 {#  Интересная штука можно будет переделать и добавить к себе в проект!      #}
 {#            {% show_categories cat_selected %}#}
 {##}
@@ -43,9 +46,9 @@
         <div class="footer-section">
             <h3>Компания</h3>
             <ul>
-                <li><a href="#">О нас</a></li>
-                <li><a href="#">Команда</a></li>
-                <li><a href="#">Новости</a></li>
+                <li><a href="{% url 'about'%}">О нас</a></li>
+                <li><a href="{% url 'about'%}#team">Команда</a></li>
+                <li><a href="{% url 'about'%}#history">Новости</a></li>
             </ul>
         </div>
 
@@ -58,14 +61,6 @@
             </ul>
         </div>
 
-        <div class="footer-section">
-            <h3>Клиентам</h3>
-            <ul>
-                <li><a href="#">Акции</a></li>
-                <li><a href="#">Калькулятор лизинга</a></li>
-                <li><a href="#">FAQ</a></li>
-            </ul>
-        </div>
 
         <div class="footer-section">
             <h3>Контакты</h3>
@@ -73,7 +68,7 @@
                 <li><a href="https://www.google.com/maps?q=55.794710, 49.138044" target="_blank">
                     Казань, ул. Карла Маркса, д. 68
                 </a></li>
-                <li><p>Телефон: <a href="tel:8 (800) 123-45-67">8 (932) 253-88-62</a></p></li>
+                <li><p>Телефон: <a href="tel:8(800)123-45-67">8(932)253-88-62</a></p></li>
                 <li><p>Email: <a href="mailto:info@gmail.com">tchernusho@gmail.com</a></p></li>
             </ul>
         </div>

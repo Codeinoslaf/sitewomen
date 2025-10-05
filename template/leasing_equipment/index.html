@@ -1,20 +1,59 @@
 {% extends 'base.html' %}
+{% load static %}
+
+{% block extra_css %}
+    <link rel="stylesheet" href="{% static 'css/index.css' %}">
+{% endblock %}
+
 {% block content %}
-    {% include 'includes/nav.html' %}
-    <h1>{{title}}</h1>
-    <ul>
-        {% for p in posts %}
-            {% if p.is_published %}
-                <li>
-                    <h2>{{p.title}}</h2>
-                    <p >{{p.content}}</p>
-                    <p ><a href="{% url 'post' p.id%}">Читать пост</a></p>
-                    {% if not forloop.last %}
-                        <hr>
-                    {% endif %}
-                </li>
-            {% endif %}
-        {% endfor %}
-    </ul>
-    {% include 'includes/nav.html' %}
+    <body>
+    <section class="hero">
+        <div class="hero-content">
+            <h1>Лизинговые решения для вашего бизнеса</h1>
+            <p>Специальные условия для новых клиентов – ставка от 5% годовых. Получите технику или оборудование уже сегодня.</p>
+            <button id="openModal" class="btn">Оставить заявку</button>
+        </div>
+    </section>
+
+    <!-- Services Section -->
+    <section class="services">
+        <h2 class="section-title">Наши услуги</h2>
+        <div class="service-card large">
+            <div class="service-img">
+                <img src='../../static/img/all.png' alt="Лизинг оборудования, техники и транспорта">
+            </div>
+            <div class="service-content">
+                <h3>Лизинг оборудования, техники и транспорта</h3>
+                <p>
+                    Мы предоставляем лизинг для различных видов техники и оборудования:
+                    от промышленных станков и производственных линий до спецтехники и коммерческого автотранспорта.
+                    Гибкие условия, минимальные первоначальные взносы и индивидуальный подход к каждому клиенту.
+                </p>
+                <a href="{% url 'equipment' %}" class="btn service-btn">Подробнее</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Process Section -->
+    <section class="process">
+        <h2 class="section-title">Как это работает</h2>
+        <div class="process-steps">
+            <div class="step">
+                <div class="step-number">1</div>
+                <h3 class="step-title">Оставьте заявку</h3>
+                <p>Заполните простую форму на сайте или позвоните нам по телефону</p>
+            </div>
+            <div class="step">
+                <div class="step-number">2</div>
+                <h3 class="step-title">Согласование условий</h3>
+                <p>Наш менеджер подберет для вас оптимальные условия лизинга</p>
+            </div>
+            <div class="step">
+                <div class="step-number">3</div>
+                <h3 class="step-title">Получите технику</h3>
+                <p>Подпишите договор и получите необходимое оборудование или транспорт</p>
+            </div>
+        </div>
+    </section>
+    </body>
 {% endblock %}
