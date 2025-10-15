@@ -1,9 +1,7 @@
 from django.http import *
 from django.shortcuts import *
-from django.urls import *
-from django.template.defaultfilters import slugify
 
-from lising.models import Equipment
+from lising.models import Equipment, Category, TagPost
 
 
 # Create your views here.
@@ -29,7 +27,7 @@ menu = [{'title': "О нас", 'url_name': 'about'},
 
 
 def index(request):
-    posts = Equipment.published.all()
+    posts = Equipment.objects.all()
     data = {
         'title': 'Главная страница',
         'menu': menu,
@@ -39,14 +37,30 @@ def index(request):
                   context=data)
 
 
-def show_category(request, cat_id):
+def show_tag_postlist(request, tag_slug):
+    tag = get_object_or_404(TagPost, slug=tag_slug)
+    posts = tag.tags.filter(is_published=Equipment.Status.PUBLISHED)
     data = {
-        'title': 'Отображение по рубрикам',
+        'title': f'Тег: {tag.tag}',
         'menu': menu,
-        'posts': Equipment.published.all(),
-        'cat_selected': cat_id,
+        'posts': posts,
+
+        'cat_selected': None,
     }
-    return render(request, 'leasing_equipment/index.html',
+    return render(request, 'leasing_equipment/equipment.html',
+                  context=data)
+
+
+def show_category(request, cat_slug):
+    category = get_object_or_404(Category, slug=cat_slug)
+    posts = Equipment.objects.filter(cat_id=category.pk)
+    data = {
+        'title': f'Рубрика: {category.name}',
+        'menu': menu,
+        'posts': posts,
+        'cat_selected': category.pk,
+    }
+    return render(request, 'leasing_equipment/equipment.html',
                   context=data)
 
 
@@ -64,9 +78,9 @@ def show_post(request, post_slug):
 
 
 def equipment(request):
-    posts = Equipment.published.all()
+    posts = Equipment.objects.all()
     data = {
-        'title': 'Главная страница',
+        'title': 'Оборудование',
         'menu': menu,
         'posts': posts,
     }
@@ -74,11 +88,13 @@ def equipment(request):
 
 
 def login(request):
-    return HttpResponse(f"Вход или регистрация")
+    return render(request, 'leasing_equipment/login.html', {'title': 'Вход или регистрация',
+                                                            'menu': menu})
 
 
 def feedback(request):
-    return HttpResponse(f"Обратная связь")
+    return render(request, 'leasing_equipment/feedback.html', {'title': 'Обратная связь',
+                                                               'menu': menu})
 
 
 def about(request):
@@ -87,8 +103,3 @@ def about(request):
 
 def page_not_found(request, exception):
     return HttpResponseNotFound('<h1>Страница не найдена</h1>')
-
-
-def show_category(request, cat_id):
-    """Функция-заглушка"""
-    return index(request)

@@ -1,97 +1,54 @@
 {% extends 'base.html' %}
 {% load static %}
+{% load lising_tags %}
 
 {% block extra_css %}
     <link rel="stylesheet" href="{% static 'css/equipment.css' %}">
 {% endblock %}
+
 {% block content %}
 
-<section class="services">
-    <h2 class="section-title">Наши услуги</h2>
-    <div class="services-grid">
-        <div class="service-card">
-            <div class="service-img">
-                <img src='../../static/img/leasing_ob.jpg' alt="Лизинг оборудования">
-            </div>
-            <div class="service-content">
-                <h3>Лизинг оборудования</h3>
-                <p>Станки, производственные линии, медицинское и IT-оборудование с минимальными первоначальными затратами.</p>
-                <a href="{% url 'equipment'%}" class="btn service-btn">Подробнее</a>
-            </div>
-        </div>
+    <!-- Sidebar слева -->
+    <div class="left-chapters">
+        <!-- Первая строка: основные категории -->
+        <ul class="category-row" id="main-categories">
+            {% if cat_selected == 0 or cat_selected is None %}
+                <li class="selected">Все категории</li>
+            {% else %}
+                <li><a href="{% url 'equipment' %}">Все категории</a></li>
+            {% endif %}
+            {% show_categories cat_selected %}
+        </ul>
 
-        <div class="service-card" id="special-equipment">
-            <div class="service-img">
-                <img src='../../static/img/leasing_tex.jpg' alt="Лизинг спецтехники">
-            </div>
-            <div class="service-content">
-                <h3>Лизинг спецтехники</h3>
-                <p>Экскаваторы, краны, бульдозеры и другая строительная техника на выгодных условиях.</p>
-                <a href="{% url 'equipment'%}" class="btn service-btn">Подробнее</a>
-            </div>
-        </div>
-
-        <div class="service-card">
-            <div class="service-img">
-                <img src='../../static/img/leasing_auto.jpg' alt="Лизинг транспорта">
-            </div>
-            <div class="service-content">
-                <h3>Лизинг транспорта</h3>
-                <p>Грузовики, фуры, коммерческие автомобили с возможностью выкупа по окончании договора.</p>
-                <a href="{% url 'equipment'%}" class="btn service-btn">Подробнее</a>
-            </div>
-        </div>
+        <ul class="category-row" id="sub-categories">
+            <li>{% show_all_tags %}</li>
+        </ul>
     </div>
-</section>
+    <!-- Конец Sidebar'а -->
 
-{##}
-{#    <!-- Equipment Grid (hidden by default) -->#}
-{#    <div class="equipment-grid" id="equipmentGrid">#}
-{#        <div class="equipment-card">#}
-{#            <div class="equipment-img">#}
-{#                <img src="https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Fkran-eks.ru%2Fwp-content%2Fuploads%2F2019%2F09%2F143d42b729aa2838563749f0cb297b80-min.jpg&f=1&nofb=1&ipt=316b5749d4ec67cee66665bae03e6dda649ed1fda02e49f38d10caa648451e8b&ipo=images" alt="Экскаватор">#}
-{#            </div>#}
-{#            <div class="equipment-info">#}
-{#                <h4>Экскаватор JCB</h4>#}
-{#                <p>Гусеничный экскаватор с ковшом 1,5 м³</p>#}
-{#                <div class="equipment-price">от 15 000 ₽/сутки</div>#}
-{#            </div>#}
-{#        </div>#}
-{##}
-{#        <div class="equipment-card">#}
-{#            <div class="equipment-img">#}
-{#                <img src="https://external-content.duckduckgo.com/iu/?u=http%3A%2F%2Fsnabstroyteh.ru%2Fwp-content%2Fuploads%2F2018%2F01%2Fcat-d6r-2.jpg&f=1&nofb=1&ipt=40153bb0f5460de1363403c6b13f574ea44bf52dd0e9ec2b5fe8153887bb643c&ipo=images" alt="Бульдозер">#}
-{#            </div>#}
-{#            <div class="equipment-info">#}
-{#                <h4>Бульдозер CAT</h4>#}
-{#                <p>Мощный бульдозер для земляных работ</p>#}
-{#                <div class="equipment-price">от 18 000 ₽/сутки</div>#}
-{#            </div>#}
-{#        </div>#}
-{##}
-{#        <div class="equipment-card">#}
-{#            <div class="equipment-img">#}
-{#                <img src="https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Fstroy-plys.ru%2Fuploads%2Fposts%2F2013-10%2F1382375402_kolesnyy-avtokran-liebherr-ltm-1060.jpg&f=1&nofb=1&ipt=4b0ac4eb9aff9c66462cdb5a00fc292c0e5117d78eb449d24b6dd421474458f9&ipo=images" alt="Автокран">#}
-{#            </div>#}
-{#            <div class="equipment-info">#}
-{#                <h4>Автокран Liebherr</h4>#}
-{#                <p>Грузоподъемность 50 тонн</p>#}
-{#                <div class="equipment-price">от 25 000 ₽/сутки</div>#}
-{#            </div>#}
-{#        </div>#}
-{##}
-{#        <div class="equipment-card">#}
-{#            <div class="equipment-img">#}
-{#                <img src="https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Fwww.ixbt.com%2Fimg%2Fn1%2Fnews%2F2024%2F1%2F1%2Fvolvo-fm-low-entry_large.jpg&f=1&nofb=1&ipt=724eb460d657c3333daa1cba9ed4f531bc42dbdac63a5e259e4db0cb220f4d54&ipo=images" alt="Грузовик">#}
-{#            </div>#}
-{#            <div class="equipment-info">#}
-{#                <h4>Грузовик Volvo</h4>#}
-{#                <p>Грузоподъемность 20 тонн</p>#}
-{#                <div class="equipment-price">от 12 000 ₽/сутки</div>#}
-{#            </div>#}
-{#        </div>#}
-{##}
-{#        <button class="btn back-btn" id="backToServices">Вернуться к услугам</button>#}
-{#    </div>#}
+
+    <h1>{{post.title}}</h1>
+    {% if post.photo %}
+        <p ><img class="img-article-left" src="{{post.photo.url}}"></p>
+    {% endif %}
+    {{post.content|linebreaks}}
+
+    <div class="products-grid">
+    {% for p in posts %}
+        <div class="product-card">
+            <p class="product-category">Категория: {{ p.cat.name }}</p>
+            <p class="product-date">Дата: {{ p.time_update|date:"d-m-Y H:i:s" }}</p>
+            <img class="product-image" src="{% static 'img/eq_items/'|add:p.slug|add:'.jpg' %}" alt="{{ p.title }}">
+            <h3 class="product-title">{{ p.title }}</h3>
+            <p class="product-price">{{ p.price }} ₽</p>
+            <p class="product-description">{{ p.content|truncatewords:20 }}</p>
+            <p class="product-time-lizing">Лизинг до {{ p.lizing_time }} лет</p>
+            <div class="product-buttons">
+                <button class="add-to-cart">Добавить в корзину</button>
+                <a href="{{ p.get_absolute_url }}" class="detail-btn">Подробнее</a>
+            </div>
+        </div>
+    {% endfor %}
+    </div>
 
 {% endblock %}
