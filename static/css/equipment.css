@@ -1,207 +1,225 @@
-:root {
-    --primary-color: #003366;
-    --secondary-color: #FFD700;
-    --accent-color: #008000;
-    --text-color: #333;
-    --white-color: #fff;
-    --light-gray: #f9f9f9;
-    --dark-gray: #e0e0e0;
-}
-
 body {
     background-color:  #f9f9f9;
-    color: var(--text-color);
-    line-height: 1.7;
-    font-weight: 400;
+}
+
+/* Основной контейнер для сайдбара */
+.left-chapters {
+    width: 80%;
+    padding: 15px 150px;
+    background-color: #f8f9fa;
+    border-radius: 8px;
+    display: flex;
+    flex-direction: column;  /* Строки stacking вертикально */
+    gap: 15px;
 
 }
-.btn {
+
+/* Общий стиль для строк категорий */
+.category-row {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    flex-direction: row;  /* Горизонтальное расположение */
+    align-items: stretch;  /* Выравниваем по высоте для карточек */
+    gap: 15px;  /* Расстояние между карточками */
+    flex-wrap: wrap;
+
+}
+.category-row li a,
+.category-row li.selected {
     display: inline-block;
-    background-color: var(--secondary-color);
-    color: var(--primary-color);
-    padding: 15px 40px;
-    border-radius: 50px;
+    padding: 6px 10px;
+    border-radius: 6px;
     text-decoration: none;
-    font-weight: 600;
-    transition: all 0.4s cubic-bezier(0.25, 0.8, 0.25, 1);
-    border: none;
-    cursor: pointer;
-    font-size: 1.1rem;
-    box-shadow: 0 4px 15px rgba(255, 215, 0, 0.3);
-    position: relative;
-    overflow: hidden;
+    color: #333;
+    transition: background 0.2s, color 0.2s;
 }
 
-.btn:hover {
-    background-color: #ffcc00;
-    transform: translateY(-3px);
-    box-shadow: 0 8px 25px rgba(255, 215, 0, 0.4);
+.category-row li a:hover {
+    background-color: #e0e7ff;
+    color: #FFD700;
 }
 
-/* Services Section */
-.services {
-    padding: 1px;
-    background-color: var(--white-color);
-    max-width: 1200px;
-    position: relative;
-    z-index: 2;
-    border-radius: 15px;
-    margin: 30px auto;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    text-align: center;
-
+.category-row li.selected {
+    font-weight: bold;
+    color: #003366;
+    background-color: #a4b7d1;
 }
 
-.section-title {
-    text-align: center;
-    color: var(--primary-color);
-    font-size: 2.2rem;
-    position: relative;
-    padding-bottom: 15px;
-    font-weight: 700;
+/* Breadcrumbs / Теги под постом */
+.my_tags {
+    display: block;
+    clear: both;
+    margin-top: 20px;
 }
 
-.section-title::after {
-    content: '';
-    position: absolute;
-    bottom: 0;
-    left: 50%;
-    transform: translateX(-50%);
-    width: 80px;
-    height: 4px;
-    background-color: var(--secondary-color);
-    border-radius: 2px;
-}
-
-.services-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-    gap: 40px;
-}
-
-.service-card {
-    background-color: var(--white-color);
-    border-radius: 15px;
-    overflow: hidden;
-    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
-    transition: all 0.4s cubic-bezier(0.25, 0.8, 0.25, 1);
+/* Список тегов */
+.tags-list {
+    list-style: none;
+    padding: 0;
     display: flex;
-    flex-direction: column;
-    height: 100%;
-    border: 1px solid var(--dark-gray);
-
+    flex-wrap: wrap;
+    gap: 8px;
 }
 
-.service-card:hover {
-    box-shadow: 0 15px 40px rgba(0, 0, 0, 0.15);
+/* Стили для каждого тега */
+.tags-list li a {
+    display: inline-block;
+    background-color: #e0f2fe;
+    color: #0369a1;
+    padding: 4px 10px;
+    border-radius: 12px;
+    text-decoration: none;
+    font-size: 0.9rem;
+    transition: background 0.2s, color 0.2s;
 }
 
-.service-img {
-    height: 220px;
-    overflow: hidden;
-    position: relative;
+.tags-list li a:hover {
+    background-color: #bae6fd;
+    color: #FFD700;
 }
 
-.service-img img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    transition: transform 0.8s ease;
+.tags-list li.selected {
+    font-weight: bold;
+    color: #003366;
+    background-color: #a4b7d1;
 }
 
-
-.service-content {
-    padding: 30px;
-    flex-grow: 1;
-    display: flex;
-    flex-direction: column;
-    align-items: center;       /* выравнивает по вертикали */
-    justify-content: center;   /* по горизонтали */
+/* Заголовок поста */
+h1 {
+    font-family: 'Arial', sans-serif;
+    font-size: 2rem;
+    color: #111827;
+    margin-bottom: 12px;
 }
 
-.service-content h3 {
-    color: var(--primary-color);
-    margin-bottom: 20px;
-    font-size: 1.5rem;
-    font-weight: 600;
-
+/* Изображение поста слева */
+.img-article-left {
+    max-width: 100%;
+    height: auto;
+    margin: 10px;
+    border-radius: 8px;
 }
 
-.service-content p {
-    margin-bottom: 25px;
-    flex-grow: 1;
-    color: #555;
-    font-size: 1rem;
+/* Контент поста */
+p {
+    font-family: 'Arial', sans-serif;
     line-height: 1.6;
-
+    color: #4b5563;
+}
+.products-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    width: 80%;
+    column-gap: 50px;
+    row-gap: 100px;
+    margin: 0 auto;
+    padding-bottom: 100px;
 }
 
-.service-btn {
+/* Стили карточки товара */
+.product-card {
+    display: flex;
+    flex-direction: column;
+    background: white;
+    border-radius: 10px;
+    overflow: hidden;
+    box-shadow: 0 3px 10px rgba(0,0,0,0.1);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    height: 100%;
+    padding: 15px;
+}
+
+.product-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 20px rgba(0,0,0,0.15);
+}
+
+.product-image {
+    width: 100%;
+    height: 200px;
+    object-fit: contain;
+    margin-bottom: 15px;
+    border-radius: 5px;
+}
+
+.product-title {
+    margin: 10px 0;
+    color: #333;
+}
+
+.product-price {
+    font-weight: bold;
+    color: #003366;
+    font-size: 1.3rem;
+    margin: 10px 0;
+}
+
+.product-category,
+.product-date {
+    color: #666;
+    font-size: 0.85rem;
+    margin: 5px 0;
+}
+
+.product-description {
+    color: #555;
+    margin: 10px 0;
+    flex-grow: 1;
+}
+
+/* Стили кнопок */
+.product-buttons {
+    display: flex;
+    gap: 10px;
     margin-top: auto;
-    background-color: var(--primary-color);
-    color: white;
-    padding: 12px 30px;
-    font-size: 1rem;
-    box-shadow: none;
-    position: relative;
 }
 
-.service-btn:hover {
-    background-color: var(--secondary-color);
+.add-to-cart,
+.detail-btn {
+    flex: 1;
+    padding: 10px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    text-align: center;
+    transition: background-color 0.3s;
+    font-size: 0.9rem;
+}
+
+.add-to-cart {
+    background-color: #003366;
     color: white;
 }
 
-/*!* Equipment Grid *!*/
-/*.equipment-grid {*/
-/*    display: none;*/
-/*    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));*/
-/*    gap: 30px;*/
-/*    padding: 40px 0;*/
-/*}*/
+.detail-btn {
+    background-color: #f0f0f0;
+    color: #333;
+    text-decoration: none;
+}
 
-/*.equipment-card {*/
-/*    background: white;*/
-/*    border-radius: 10px;*/
-/*    overflow: hidden;*/
-/*    box-shadow: 0 5px 15px rgba(0,0,0,0.1);*/
-/*}*/
+.add-to-cart:hover {
+    background-color: #FFD700;
+}
 
-/*.equipment-img {*/
-/*    height: 180px;*/
-/*    overflow: hidden;*/
-/*}*/
+.detail-btn:hover {
+    background-color: #e0e0e0;
+}
 
-/*.equipment-img img {*/
-/*    width: 100%;*/
-/*    height: 100%;*/
-/*    object-fit: cover;*/
-/*    transition: transform 0.5s;*/
-/*}*/
+/* Адаптивность */
+@media (max-width: 768px) {
+    .products-grid {
+        grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+    }
 
-/*.equipment-card:hover .equipment-img img {*/
-/*    transform: scale(1.05);*/
-/*}*/
+    .product-buttons {
+        flex-direction: column;
+    }
+}
 
-/*.equipment-info {*/
-/*    padding: 20px;*/
-/*}*/
-
-/*.equipment-info h4 {*/
-/*    color: var(--primary-color);*/
-/*    margin-bottom: 10px;*/
-/*}*/
-
-/*.equipment-price {*/
-/*    color: var(--accent-color);*/
-/*    font-weight: 600;*/
-/*    font-size: 1.2rem;*/
-/*}*/
-
-/*.back-btn {*/
-/*    display: block;*/
-/*    margin: 30px auto;*/
-/*    background-color: var(--primary-color);*/
-/*    color: white;*/
-/*}*/
+@media (max-width: 480px) {
+    .products-grid {
+        grid-template-columns: 1fr;
+    }
+}

@@ -4,3 +4,4 @@ from django.apps import AppConfig
 class LisingConfig(AppConfig):
     default_auto_field = 'django.db.models.BigAutoField'
     name = 'lising'
+    verbose_name = 'Доступные предложения'

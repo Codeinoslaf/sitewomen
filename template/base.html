@@ -19,15 +19,6 @@
 
         <ul>
 
-{#  Интересная штука можно будет переделать и добавить к себе в проект!      #}
-{#            {% show_categories cat_selected %}#}
-{##}
-{#                {% if cat_selected == 0 or cat_selected is None %}#}
-{#                    <li class="selected">Главная</li>#}
-{#                {% else %}#}
-{#                    <li><a href="{% url 'home' %}">Главная</a></li>#}
-{#                {% endif %}#}
-
             <li><a href="{% url 'home' %}">Главная</a></li>
             {% for m in menu %}
                 {% if not forloop.last %}<li>{% else %}<li class="last">{% endif %}
